@@ -7,10 +7,10 @@
 /* ============================================ */
 /* 1. ESTILOS GENERALES                         */
 /* ============================================ */
-
 body {
     background-color: #F7F9FB;
     -webkit-font-smoothing: antialiased;
+    zoom: 0.85; /* Reducción de escala general */
 }
 
 /* ============================================ */
@@ -71,4 +71,13 @@ body {
     .card-item p {
         font-size: 13px;
     }
+}
+/* ============================================ */
+/* 7. LAYOUT GLOBAL - Espaciado de bordes       */
+/* ============================================ */
+
+main {
+    padding-left: 24px !important;
+    padding-right: 24px !important;
+    box-sizing: border-box;
 }
