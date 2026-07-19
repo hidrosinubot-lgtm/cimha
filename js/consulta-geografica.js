@@ -152,16 +152,14 @@ submitBtn.addEventListener('click', () => {
             muni: selectedMuni
         }));
         
-        // Efecto de salida
-        submitBtn.style.transition = 'all 0.5s ease-out';
-        submitBtn.style.opacity = '0';
-        submitBtn.style.transform = 'scale(0.95)';
+        // Efecto de salida - fade out de toda la pantalla
+        main.classList.add('fade-out');
         
         setTimeout(() => {
             console.log('Ubicación seleccionada:', selectedDept, '→', selectedMuni);
             console.log('Datos guardados en localStorage:', localStorage.getItem('selected_location'));
-            window.location.href = 'dashboard.html'; // Cambia por tu pantalla destino
-        }, 600);
+            window.location.href = 'principal.html';
+        }, 500); // coincide con los 0.5s de la transición en el CSS
     }
 });
 
