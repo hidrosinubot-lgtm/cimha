@@ -4,7 +4,7 @@
 
 /**
  * CIMHA - Sistema de Precisión Hidrológica
- * Este archivo maneja toda la interactividad de la página
+ * Pantalla de bienvenida con logo
  */
 
 // ============================================ //
@@ -14,171 +14,68 @@
 document.addEventListener('DOMContentLoaded', function() {
     console.log('🚀 CIMHA - Sistema iniciado correctamente');
     
-    // Inicializar todas las funciones
-    initLogoAnimation();
-    initResponsiveBehavior();
-    initPerformanceOptimizations();
+    // Iniciar secuencia de bienvenida
+    iniciarBienvenida();
 });
 
 // ============================================ //
-// 2. ANIMACIÓN DEL LOGO                        //
+// 2. SECUENCIA DE BIENVENIDA CON LOGO         //
 // ============================================ //
 
-function initLogoAnimation() {
+function iniciarBienvenida() {
     const logoContainer = document.getElementById('logo-container');
     
-    if (logoContainer) {
-        // Pequeña mejora: añadir clase para activar animación
-        // La animación ya está en CSS con fadeInLogo
-        console.log('✅ Logo animado correctamente');
-        
-        // Si quieres control adicional, puedes hacer:
-        // logoContainer.style.animation = 'fadeInLogo 0.8s ease forwards';
-    } else {
-        console.warn('⚠️ No se encontró #logo-container');
+    if (!logoContainer) {
+        console.error('❌ No se encontró #logo-container');
+        // Si no hay logo, redirigir directamente
+        window.location.href = 'consulta-geografica.html';
+        return;
     }
+    
+    console.log('🎬 Iniciando secuencia de bienvenida...');
+    
+    // PASO 1: Mostrar logo con animación de entrada
+    logoContainer.classList.remove('opacity-0');
+    logoContainer.classList.add('animate-fade-in');
+    
+    // PASO 2: Esperar 2 segundos (logo visible)
+    setTimeout(() => {
+        console.log('⏰ 2 segundos completados, ocultando logo...');
+        
+        // PASO 3: Ocultar logo con animación de salida
+        logoContainer.classList.remove('animate-fade-in');
+        logoContainer.classList.add('animate-fade-out');
+        
+        // PASO 4: Esperar a que termine la animación de salida (0.5s)
+        setTimeout(() => {
+            console.log('🔄 Redirigiendo a consulta-geografica.html...');
+            
+            // PASO 5: Redirigir a la siguiente pantalla
+            window.location.href = 'consulta-geografica.html';
+            
+        }, 500); // 500ms = duración de la animación fade-out
+        
+    }, 2000); // 2000ms = 2 segundos
 }
 
 // ============================================ //
-// 3. COMPORTAMIENTO RESPONSIVE                 //
-// ============================================ //
-
-function initResponsiveBehavior() {
-    // Detectar cambios de tamaño
-    const mediaQuery = window.matchMedia('(max-width: 768px)');
-    
-    function handleResponsive(e) {
-        if (e.matches) {
-            // Estamos en móvil
-            document.documentElement.style.setProperty('--space-container', '16px');
-            console.log('📱 Modo móvil activado');
-        } else {
-            // Estamos en escritorio
-            document.documentElement.style.setProperty('--space-container', '32px');
-            console.log('💻 Modo escritorio activado');
-        }
-    }
-    
-    // Ejecutar al cargar
-    handleResponsive(mediaQuery);
-    
-    // Escuchar cambios
-    mediaQuery.addEventListener('change', handleResponsive);
-}
-
-// ============================================ //
-// 4. OPTIMIZACIONES DE RENDIMIENTO             //
-// ============================================ //
-
-function initPerformanceOptimizations() {
-    // Detectar si el usuario está en una conexión lenta
-    if ('connection' in navigator) {
-        const connection = navigator.connection;
-        
-        if (connection.saveData) {
-            // Modo de ahorro de datos activado
-            console.log('🔋 Modo ahorro de datos activado');
-            // Aquí puedes cargar imágenes de menor calidad
-            // o reducir animaciones
-        }
-        
-        if (connection.effectiveType === 'slow-2g' || connection.effectiveType === '2g') {
-            console.log('🐢 Conexión lenta detectada');
-            // Reducir animaciones o carga de recursos pesados
-            document.querySelectorAll('.animate-pulse').forEach(el => {
-                el.style.animationDuration = '2s';
-            });
-        }
-    }
-    
-    // Observer de intersección para lazy loading (si es necesario)
-    if ('IntersectionObserver' in window) {
-        const images = document.querySelectorAll('img[loading="lazy"]');
-        const imageObserver = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    const img = entry.target;
-                    img.src = img.dataset.src || img.src;
-                    imageObserver.unobserve(img);
-                }
-            });
-        });
-        
-        images.forEach(img => imageObserver.observe(img));
-    }
-}
-
-// ============================================ //
-// 5. UTILIDADES ADICIONALES                    //
+// 3. FUNCIONES DE UTILIDAD (opcionales)       //
 // ============================================ //
 
 /**
- * Función para verificar si un elemento está visible en pantalla
+ * Función para redirigir manualmente (si se necesita)
  */
-function isElementInViewport(el) {
-    const rect = el.getBoundingClientRect();
-    return (
-        rect.top >= 0 &&
-        rect.left >= 0 &&
-        rect.bottom <= (window.innerHeight || document.documentElement.clientHeight) &&
-        rect.right <= (window.innerWidth || document.documentElement.clientWidth)
-    );
+function redirigirA(destino) {
+    window.location.href = destino;
 }
 
 /**
- * Función para debounce (limitar ejecución de eventos)
+ * Función para obtener el tiempo restante (debug)
  */
-function debounce(func, wait) {
-    let timeout;
-    return function executedFunction(...args) {
-        const later = () => {
-            clearTimeout(timeout);
-            func(...args);
-        };
-        clearTimeout(timeout);
-        timeout = setTimeout(later, wait);
-    };
+function obtenerTiempoRestante(tiempoInicio, duracion) {
+    const tiempoActual = Date.now();
+    const tiempoTranscurrido = (tiempoActual - tiempoInicio) / 1000;
+    return Math.max(0, duracion - tiempoTranscurrido);
 }
 
-/**
- * Función para throttle (limitar ejecución de eventos)
- */
-function throttle(func, limit) {
-    let inThrottle;
-    return function(...args) {
-        if (!inThrottle) {
-            func.apply(this, args);
-            inThrottle = true;
-            setTimeout(() => inThrottle = false, limit);
-        }
-    };
-}
-
-// ============================================ //
-// 6. REGISTRO DE ERRORES                      //
-// ============================================ //
-
-window.addEventListener('error', function(e) {
-    console.error('❌ Error capturado:', e.message);
-    // Aquí puedes enviar errores a un servicio de monitoreo
-});
-
-window.addEventListener('unhandledrejection', function(e) {
-    console.error('❌ Promesa rechazada sin manejar:', e.reason);
-});
-
-// ============================================ //
-// 7. MODO OSCURO (opcional - basado en DESIGN.MD) //
-// ============================================ //
-
-// Si quieres implementar modo oscuro en el futuro
-// const darkModeToggle = document.getElementById('dark-mode-toggle');
-// 
-// if (darkModeToggle) {
-//     darkModeToggle.addEventListener('click', function() {
-//         document.body.classList.toggle('dark-mode');
-//         console.log('🌙 Modo oscuro:', document.body.classList.contains('dark-mode'));
-//     });
-// }
-
-console.log('✅ CIMHA - Todo listo');
+console.log('✅ CIMHA - Script cargado correctamente');
