@@ -75,7 +75,7 @@ function openModal(type) {
         div.className = `px-gutter py-5 flex items-center cursor-pointer border-b border-surface-container transition-colors ${
             isSelected ? 'bg-secondary-container/10 border-l-[6px] border-l-secondary' : 'hover:bg-surface-container-low'
         }`;
-        div.innerHTML = `<span class="font-body-lg text-on-surface ${isSelected ? 'font-medium' : ''}">${opt}</span>`;
+        div.innerHTML = `<span class="font-body-lg text-on-surface ${isSelected ? 'font-normal' : ''}">${opt}</span>`;
         div.onclick = () => selectOption(opt);
         list.appendChild(div);
     });
