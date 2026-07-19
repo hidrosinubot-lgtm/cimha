@@ -11,85 +11,24 @@
 :root {
     /* Colores - Basados en DESIGN.md */
     --surface: #f7f9fb;
-    --surface-dim: #d8dadc;
-    --surface-bright: #f7f9fb;
-    --surface-container-lowest: #ffffff;
-    --surface-container-low: #f2f4f6;
     --surface-container: #eceef0;
-    --surface-container-high: #e6e8ea;
-    --surface-container-highest: #e0e3e5;
+    --surface-container-low: #f2f4f6;
     --on-surface: #191c1e;
     --on-surface-variant: #45464d;
-    --inverse-surface: #2d3133;
-    --inverse-on-surface: #eff1f3;
     --outline: #76777d;
     --outline-variant: #c6c6cd;
-    --surface-tint: #565e74;
-    
-    /* Primarios */
-    --primary: #000000;
-    --on-primary: #ffffff;
     --primary-container: #131b2e;
-    --on-primary-container: #7c839b;
-    --inverse-primary: #bec6e0;
-    
-    /* Secundarios */
     --secondary: #0058be;
     --on-secondary: #ffffff;
-    --secondary-container: #2170e4;
-    --on-secondary-container: #fefcff;
-    
-    /* Errores */
-    --error: #ba1a1a;
-    --on-error: #ffffff;
-    --error-container: #ffdad6;
-    --on-error-container: #93000a;
-    
-    /* Fondo */
-    --background: #f7f9fb;
-    --on-background: #191c1e;
-    --surface-variant: #e0e3e5;
-    
-    /* Tipografía - Inter */
-    --font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-    
-    /* Tamaños de texto - Basados en DESIGN.md */
-    --text-display-metric: 48px;
-    --text-headline-lg: 32px;
-    --text-headline-lg-mobile: 24px;
-    --text-headline-md: 20px;
-    --text-body-lg: 16px;
-    --text-body-sm: 14px;
-    --text-label-caps: 12px;
-    
-    /* Pesos de fuente - Basados en DESIGN.md */
-    --weight-display-metric: 700;
-    --weight-headline: 600;
-    --weight-body: 400;
-    --weight-label: 600;
-    
-    /* Espaciado - 8px linear scale (DESIGN.md) */
-    --space-base: 8px;
-    --space-container-mobile: 16px important¡;
-    --space-container-desktop: 32px;
-    --space-gutter: 16px;
-    --space-stack-sm: 4px;
-    --space-stack-md: 12px;
-    --space-stack-lg: 24px;
     
     /* Bordes redondeados - Basados en DESIGN.md */
-    --radius-sm: 0.25rem;      /* 4px */
-    --radius-default: 0.5rem;  /* 8px - Consistente en todos los contenedores */
-    --radius-md: 0.75rem;      /* 12px */
-    --radius-lg: 1rem;         /* 16px - Para tarjetas grandes */
-    --radius-xl: 1.5rem;       /* 24px - Para bottom sheets */
+    --radius-default: 0.5rem;  /* 8px */
+    --radius-xl: 1.5rem;       /* 24px */
     --radius-full: 9999px;
     
-    /* Sombras - Basadas en DESIGN.md */
-    --shadow-level-0: none;
-    --shadow-level-1: 0px 1px 0px 0px #E2E8F0; /* Borde sutil para cards */
-    --shadow-level-2: 0px 10px 25px rgba(0, 0, 0, 0.05); /* Para modals/bottom sheets */
-    --shadow-scrim: rgba(19, 27, 46, 0.4); /* 40% opacity navy scrim */
+    /* Espaciado - Basados en DESIGN.md */
+    --space-gutter: 16px;
+    --space-stack-lg: 24px;
 }
 
 /* ============================================ */
@@ -107,7 +46,7 @@
 
 .bottom-sheet {
     /* Elevación Nivel 2: sombra ambiental */
-    box-shadow: var(--shadow-level-2);
+    box-shadow: 0px 10px 25px rgba(0, 0, 0, 0.05);
     
     /* Forma: esquinas superiores redondeadas (1.5rem = 24px) */
     border-radius: var(--radius-xl) var(--radius-xl) 0 0;
@@ -126,11 +65,11 @@
 
 /* Mango "grabber" - Centrado en la parte superior */
 .bottom-sheet .grabber {
-    width: 48px;          /* 3rem */
-    height: 4px;          /* 0.25rem */
+    width: 48px;
+    height: 4px;
     background-color: var(--outline-variant);
     border-radius: var(--radius-full);
-    margin: 12px auto;    /* stack-md */
+    margin: 12px auto;
 }
 
 /* ============================================ */
@@ -139,7 +78,7 @@
 
 .overlay {
     /* Scrim: 40% opacity navy (DESIGN.md) */
-    background-color: var(--shadow-scrim);
+    background-color: rgba(19, 27, 46, 0.4);
     
     opacity: 0;
     pointer-events: none;
@@ -152,66 +91,30 @@
 }
 
 /* ============================================ */
-/* 5. ANIMACIÓN DE ENTRADA DEL LOGO            */
-/* ============================================ */
-
-@keyframes fadeIn {
-    0% {
-        opacity: 0;
-        transform: scale(0.95);
-    }
-    100% {
-        opacity: 1;
-        transform: scale(1);
-    }
-}
-
-.animate-fade-in {
-    animation: fadeIn 0.8s cubic-bezier(0.4, 0, 0.2, 1) forwards;
-}
-
-/* ============================================ */
-/* 6. BOTÓN PRIMARIO (DESIGN.md)               */
+/* 5. BOTÓN PRIMARIO (DESIGN.md)               */
 /* ============================================ */
 
 /* Botón primario - Estado deshabilitado */
 #submit-btn {
-    /* Fondo gris suave (#F1F5F9 según DESIGN.md) */
     background-color: var(--surface-container);
     color: var(--on-surface-variant);
-    
-    /* Forma: 0.5rem (8px) consistente */
     border-radius: var(--radius-default);
-    
-    /* Tipografía: bold (600 según DESIGN.md) */
-    font-weight: var(--weight-headline);
-    font-family: var(--font-family);
-    
-    /* Transición suave */
+    font-weight: 600;
+    font-family: 'Inter', sans-serif;
     transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-    
-    /* Ancho completo en móvil (DESIGN.md) */
     width: 100%;
-    
-    /* Altura consistente */
-    height: 56px; /* 3.5rem */
+    height: 56px;
 }
 
 /* Botón primario - Estado activo/habilitado */
 #submit-btn:not(:disabled) {
-    /* Navy background (DESIGN.md) */
     background-color: var(--primary);
     color: var(--on-primary);
-    
-    /* Shadow level 1 para cards (DESIGN.md) */
-    box-shadow: var(--shadow-level-1);
-    
-    /* Interacción táctil */
+    box-shadow: 0px 1px 0px 0px #E2E8F0;
     cursor: pointer;
 }
 
 #submit-btn:not(:disabled):hover {
-    /* Efecto sutil de elevación (DESIGN.md) */
     background-color: var(--primary-container);
     color: var(--on-primary-container);
     transform: scale(1.02);
@@ -223,30 +126,19 @@
 }
 
 /* ============================================ */
-/* 7. SELECTORES Y CAMPOS (DESIGN.md)          */
+/* 6. SELECTORES Y CAMPOS (DESIGN.md)          */
 /* ============================================ */
 
 /* Trigger de selección - Borde 1px */
 #dept-trigger,
 #muni-trigger {
-    /* Borde definido de 1px (DESIGN.md) */
     border: 1px solid var(--outline-variant);
-    
-    /* Forma: 0.5rem (8px) consistente */
     border-radius: var(--radius-default);
-    
-    /* Fondo de superficie */
     background-color: var(--surface);
-    
-    /* Transición suave */
     transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
-    
-    /* Altura consistente (56px) */
     height: 56px;
-    
-    /* Tipografía */
-    font-family: var(--font-family);
-    font-size: var(--text-body-lg);
+    font-family: 'Inter', sans-serif;
+    font-size: 16px;
 }
 
 /* Estado focus - Primary blue + glow (DESIGN.md) */
@@ -254,17 +146,14 @@
 #muni-trigger:focus-visible {
     border-color: var(--secondary);
     outline: none;
-    /* Glow de 2px (DESIGN.md) */
     box-shadow: 0 0 0 2px rgba(0, 88, 190, 0.2);
 }
 
-/* Hover sutil */
 #dept-trigger:hover:not(:disabled),
 #muni-trigger:hover:not(:disabled) {
     border-color: var(--secondary);
 }
 
-/* Estado deshabilitado */
 #muni-trigger:disabled {
     opacity: 0.5;
     cursor: not-allowed;
@@ -272,49 +161,36 @@
 }
 
 /* ============================================ */
-/* 8. LISTAS ORDENADAS (DESIGN.md)             */
+/* 7. LISTAS ORDENADAS (DESIGN.md)             */
 /* ============================================ */
 
 #options-list {
-    /* Espaciado entre elementos */
     display: flex;
     flex-direction: column;
 }
 
-/* Cada item de la lista */
 #options-list div {
-    /* Divider de 1px (DESIGN.md) */
     border-bottom: 1px solid var(--surface-container);
-    
-    /* Padding vertical generous (DESIGN.md) */
     padding: var(--space-stack-lg) var(--space-gutter);
-    
-    /* Transición suave */
     transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
-    
-    /* Cursor pointer */
     cursor: pointer;
-    
-    /* Tipografía */
-    font-family: var(--font-family);
-    font-size: var(--text-body-lg);
+    font-family: 'Inter', sans-serif;
+    font-size: 16px;
     color: var(--on-surface);
 }
 
-/* Hover en items */
 #options-list div:hover {
     background-color: var(--surface-container-low);
 }
 
-/* Item seleccionado (secondary highlight) */
 #options-list div.selected {
     background-color: var(--secondary-container);
     border-left: 6px solid var(--secondary);
-    font-weight: var(--weight-headline);
+    font-weight: 600;
 }
 
 /* ============================================ */
-/* 9. SCROLL PERSONALIZADO                      */
+/* 8. SCROLL PERSONALIZADO                      */
 /* ============================================ */
 
 #options-list::-webkit-scrollbar {
@@ -336,35 +212,31 @@
 }
 
 /* ============================================ */
-/* 10. RESPONSIVE - MÓVIL (DESIGN.md)          */
+/* 9. RESPONSIVE - MÓVIL (DESIGN.md)           */
 /* ============================================ */
 
 @media (max-width: 480px) {
-    /* Márgenes seguros de 16px en móvil (DESIGN.md) */
     .bottom-sheet {
         max-height: 85vh;
         border-radius: var(--radius-xl) var(--radius-xl) 0 0;
     }
     
-    /* Elementos táctiles más grandes (44px mínimo) */
     #options-list div {
         padding: 16px var(--space-gutter);
         min-height: 56px;
     }
     
-    /* Ajuste de texto para móvil */
     #dept-trigger,
     #muni-trigger {
-        font-size: var(--text-body-sm);
+        font-size: 14px;
     }
 }
 
 /* ============================================ */
-/* 11. RESPONSIVE - ESCRITORIO (DESIGN.md)     */
+/* 10. RESPONSIVE - ESCRITORIO (DESIGN.md)     */
 /* ============================================ */
 
 @media (min-width: 768px) {
-    /* Márgenes de 32px en desktop (DESIGN.md) */
     .bottom-sheet {
         max-height: 70vh;
         border-radius: var(--radius-xl) var(--radius-xl) 0 0;
@@ -372,7 +244,7 @@
 }
 
 /* ============================================ */
-/* 12. TRANSICIÓN DEL MAIN (para redirección)  */
+/* 11. TRANSICIÓN DEL MAIN (para redirección)  */
 /* ============================================ */
 
 main {
@@ -385,67 +257,66 @@ main.fade-out {
 }
 
 /* ============================================ */
-/* 13. ACCESIBILIDAD - ENFOQUE VISIBLE         */
+/* 12. ACCESIBILIDAD - ENFOQUE VISIBLE         */
 /* ============================================ */
 
-/* Enfoque visible para navegación por teclado (DESIGN.md) */
 :focus-visible {
     outline: 2px solid var(--secondary);
     outline-offset: 2px;
 }
 
 /* ============================================ */
-/* 14. TIPOGRAFÍA - BASADA EN DESIGN.MD        */
+/* 13. TIPOGRAFÍA - BASADA EN DESIGN.MD        */
 /* ============================================ */
 
 .display-metric {
-    font-family: var(--font-family);
-    font-size: var(--text-display-metric);
-    font-weight: var(--weight-display-metric);
+    font-family: 'Inter', sans-serif;
+    font-size: 48px;
+    font-weight: 700;
     line-height: 1.17;
     letter-spacing: -0.02em;
 }
 
 .headline-lg {
-    font-family: var(--font-family);
-    font-size: var(--text-headline-lg);
-    font-weight: var(--weight-headline);
+    font-family: 'Inter', sans-serif;
+    font-size: 32px;
+    font-weight: 600;
     line-height: 1.25;
     letter-spacing: -0.01em;
 }
 
 .headline-lg-mobile {
-    font-family: var(--font-family);
-    font-size: var(--text-headline-lg-mobile);
-    font-weight: var(--weight-headline);
+    font-family: 'Inter', sans-serif;
+    font-size: 24px;
+    font-weight: 600;
     line-height: 1.33;
 }
 
 .headline-md {
-    font-family: var(--font-family);
-    font-size: var(--text-headline-md);
-    font-weight: var(--weight-headline);
+    font-family: 'Inter', sans-serif;
+    font-size: 20px;
+    font-weight: 600;
     line-height: 1.4;
 }
 
 .body-lg {
-    font-family: var(--font-family);
-    font-size: var(--text-body-lg);
-    font-weight: var(--weight-body);
+    font-family: 'Inter', sans-serif;
+    font-size: 16px;
+    font-weight: 400;
     line-height: 1.5;
 }
 
 .body-sm {
-    font-family: var(--font-family);
-    font-size: var(--text-body-sm);
-    font-weight: var(--weight-body);
+    font-family: 'Inter', sans-serif;
+    font-size: 14px;
+    font-weight: 400;
     line-height: 1.43;
 }
 
 .label-caps {
-    font-family: var(--font-family);
-    font-size: var(--text-label-caps);
-    font-weight: var(--weight-label);
+    font-family: 'Inter', sans-serif;
+    font-size: 12px;
+    font-weight: 600;
     line-height: 1.33;
     letter-spacing: 0.05em;
     text-transform: uppercase;
