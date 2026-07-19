@@ -159,7 +159,7 @@ main {
 }
 
 /* ============================================ */
-/* 5. LOGO SECTION                              */
+/* 5. LOGO SECTION - VERSIÓN UNIFICADA          */
 /* ============================================ */
 
 #logo-container {
@@ -168,19 +168,8 @@ main {
     justify-content: center;
     width: 100%;
     max-width: 320px;
-    opacity: 0;
-    animation: fadeInLogo 0.8s ease forwards;
-}
-
-@keyframes fadeInLogo {
-    0% {
-        opacity: 0;
-        transform: scale(0.95);
-    }
-    100% {
-        opacity: 1;
-        transform: scale(1);
-    }
+    opacity: 0; /* Comienza oculto */
+    transition: opacity 0.3s ease;
 }
 
 #logo-container img {
@@ -385,4 +374,51 @@ main {
     100% {
         background-position: -200% 0;
     }
+}
+
+/* ============================================ */
+/* 11. ANIMACIONES DE LOGO (ENTRADA Y SALIDA)  */
+/* ============================================ */
+
+/* Animación de entrada - Fade In */
+@keyframes fadeIn {
+    0% {
+        opacity: 0;
+        transform: scale(0.8);
+    }
+    100% {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+/* Animación de salida - Fade Out */
+@keyframes fadeOut {
+    0% {
+        opacity: 1;
+        transform: scale(1);
+    }
+    100% {
+        opacity: 0;
+        transform: scale(1.1);
+    }
+}
+
+/* Clases para usar en el HTML/JS */
+.animate-fade-in {
+    animation: fadeIn 0.8s ease forwards;
+}
+
+.animate-fade-out {
+    animation: fadeOut 0.5s ease forwards;
+}
+
+/* Estado cuando el logo está visible */
+#logo-container.animate-fade-in {
+    opacity: 1;
+}
+
+/* Estado cuando el logo está oculto */
+#logo-container.animate-fade-out {
+    opacity: 0;
 }
