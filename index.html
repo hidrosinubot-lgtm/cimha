@@ -1,164 +1,42 @@
 <!DOCTYPE html>
-
-<html class="light" lang="es"><head>
-<meta charset="utf-8"/>
-<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&amp;display=swap" rel="stylesheet"/>
-<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=block" rel="stylesheet"/>
-<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
-<script id="tailwind-config">
-        try {
-            tailwind.config = {
-                darkMode: "class",
-                theme: {
-                    extend: {
-                        "colors": {
-                            "primary": "#000000",
-                            "on-tertiary-fixed-variant": "#574425",
-                            "surface-container-low": "#f2f4f6",
-                            "surface": "#f7f9fb",
-                            "primary-fixed-dim": "#bec6e0",
-                            "on-background": "#191c1e",
-                            "on-secondary": "#ffffff",
-                            "surface-bright": "#f7f9fb",
-                            "tertiary-container": "#271901",
-                            "on-tertiary": "#ffffff",
-                            "on-primary-fixed-variant": "#3f465c",
-                            "tertiary": "#000000",
-                            "on-tertiary-container": "#98805d",
-                            "secondary-fixed": "#d8e2ff",
-                            "secondary-container": "#2170e4",
-                            "surface-container": "#eceef0",
-                            "secondary": "#0058be",
-                            "primary-fixed": "#dae2fd",
-                            "on-error": "#ffffff",
-                            "tertiary-fixed-dim": "#dec29a",
-                            "surface-container-high": "#e6e8ea",
-                            "on-secondary-fixed-variant": "#004395",
-                            "on-secondary-container": "#fefcff",
-                            "on-primary-fixed": "#131b2e",
-                            "on-surface": "#191c1e",
-                            "surface-dim": "#d8dadc",
-                            "on-primary-container": "#7c839b",
-                            "on-error-container": "#93000a",
-                            "on-primary": "#ffffff",
-                            "inverse-on-surface": "#eff1f3",
-                            "error-container": "#ffdad6",
-                            "on-surface-variant": "#45464d",
-                            "surface-tint": "#565e74",
-                            "outline-variant": "#c6c6cd",
-                            "error": "#ba1a1a",
-                            "on-tertiary-fixed": "#271901",
-                            "surface-container-highest": "#e0e3e5",
-                            "secondary-fixed-dim": "#adc6ff",
-                            "primary-container": "#131b2e",
-                            "inverse-primary": "#bec6e0",
-                            "outline": "#76777d",
-                            "on-secondary-fixed": "#001a42",
-                            "background": "#f7f9fb",
-                            "tertiary-fixed": "#fcdeb5",
-                            "surface-container-lowest": "#ffffff",
-                            "surface-variant": "#e0e3e5",
-                            "inverse-surface": "#2d3133"
-                        },
-                        "borderRadius": {
-                            "DEFAULT": "0.25rem",
-                            "lg": "0.5rem",
-                            "xl": "0.75rem",
-                            "full": "9999px"
-                        },
-                        "spacing": {
-                            "base": "8px",
-                            "stack-lg": "24px",
-                            "container-margin-mobile": "16px",
-                            "container-margin-desktop": "32px",
-                            "stack-sm": "4px",
-                            "gutter": "16px",
-                            "stack-md": "12px"
-                        },
-                        "fontFamily": {
-                            "headline-lg-mobile": ["Inter"],
-                            "body-sm": ["Inter"],
-                            "body-lg": ["Inter"],
-                            "label-caps": ["Inter"],
-                            "headline-md": ["Inter"],
-                            "headline-lg": ["Inter"],
-                            "display-metric": ["Inter"]
-                        },
-                        "fontSize": {
-                            "headline-lg-mobile": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
-                            "body-sm": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
-                            "body-lg": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
-                            "label-caps": ["12px", {"lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "600"}],
-                            "headline-md": ["20px", {"lineHeight": "28px", "fontWeight": "600"}],
-                            "headline-lg": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.01em", "fontWeight": "600"}],
-                            "display-metric": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700"}]
-                        },
-                        "animation": {
-                            "splash-in": "splash-in 1.5s ease-out forwards",
-                            "splash-out": "splash-out 1.5s ease-in forwards"
-                        },
-                        "keyframes": {
-                            "splash-in": {
-                                "0%": { "opacity": "0", "transform": "scale(0.8)" },
-                                "100%": { "opacity": "1", "transform": "scale(1)" }
-                            },
-                            "splash-out": {
-                                "0%": { "opacity": "1", "transform": "scale(1)" },
-                                "100%": { "opacity": "0", "transform": "scale(0.8)" }
-                            }
-                        }
-                    },
-                },
-            }
-        } catch (_e) {}
-    </script>
+<html lang="es">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>CIMHA - Centro de Inteligencia Meterorologica Hidrologica y Ambiental </title>
+    
+    <!-- ✅ Tailwind CSS (si lo usas) -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- ✅ Tu CSS personalizado -->
+    <link rel="stylesheet" href="css/index.css" />
 </head>
-<body class="bg-surface-container-lowest text-on-surface font-body-lg overflow-hidden">
-<!-- Splash Screen Wrapper -->
-<main class="fixed inset-0 flex flex-col items-center justify-center bg-surface-container-lowest transition-all duration-700 z-[9999]" id="splash-screen">
-<!-- Center Logo Section -->
-<div 
-  class="relative flex items-center justify-center w-full max-w-xs opacity-0" 
-  id="logo-container"
->
-  <div class="relative z-10">
-    <img 
-      alt="CIMHA Logo" 
-      class="w-48 h-48 object-contain" 
-      src="assets/cimha-logo.png"
-      width="192"
-      height="192"
-      loading="lazy"
-    />
-  </div>
-</div>
-</main>
-<!-- Fallback Content Container -->
-<div class="hidden h-screen w-full bg-surface" id="main-content">
-</div>
-<script>
-        document.addEventListener('DOMContentLoaded', () => {
-            const logo = document.getElementById('logo-container');
-            
-            // Step 1: Fade in and Scale up (1.5s)
-            logo.classList.add('animate-splash-in');
+<body>
+    <!-- ============================================ -->
+    <!-- MAIN CONTENT                                -->
+    <!-- ============================================ -->
+    <main>
+        <!-- Center Logo Section -->
+        <div 
+            class="relative flex items-center justify-center w-full max-w-xs opacity-0" 
+            id="logo-container"
+        >
+            <div class="relative z-10">
+                <img 
+                    alt="CIMHA Logo" 
+                    class="w-48 h-48 object-contain" 
+                    src="assets/cimha-logo.webp"
+                    width="192" 
+                    height="192" 
+                    loading="eager"
+                    fetchpriority="high"
+                    decoding="async"
+                />
+            </div>
+        </div>
+    </main>
 
-            // Step 2: Once fully appeared, wait for 3 seconds before starting the fade-out
-            // Animation duration for splash-in is 1.5s, so we wait 1.5s (to finish) + 3s (pause) = 4.5s
-            setTimeout(() => {
-                logo.classList.remove('animate-splash-in');
-                // Force reflow
-                void logo.offsetWidth;
-                logo.classList.add('animate-splash-out');
-                
-                // Step 3: Immediately after fade-out completes (1.5s duration), redirect
-                setTimeout(() => {
-                    // Simulation of navigation to Territorial Consultation screen
-                    window.location.href = '#{{DATA:SCREEN:SCREEN_93}}';
-                }, 1500); 
-
-            }, 4500); 
-        });
-    </script>
-</body></html>
+    <!-- ✅ JavaScript -->
+    <script src="js/index.js"></script>
+</body>
+</html>
