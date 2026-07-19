@@ -109,7 +109,7 @@
 /* Botón primario - Estado activo/habilitado */
 #submit-btn:not(:disabled) {
     background-color: #0053C2;
-    color: var(--on-primary);
+    color:#f0f1f2;
     box-shadow: 0px 1px 0px 0px #E2E8F0;
     cursor: pointer;
 }
