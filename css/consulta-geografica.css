@@ -1,0 +1,142 @@
+/* ============================================ */
+/* CONSULTA-GEOGRAFICA.CSS - ESTILOS           */
+/* Basado en DESIGN.md                          */
+/* ============================================ */
+
+/* ============================================ */
+/* 1. ICONOS DE MATERIAL                        */
+/* ============================================ */
+
+.material-symbols-outlined {
+    font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+    vertical-align: middle;
+}
+
+/* ============================================ */
+/* 2. BOTTOM SHEET - ANIMACIONES                */
+/* ============================================ */
+
+.bottom-sheet {
+    transform: translateY(100%);
+    transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.bottom-sheet.open {
+    transform: translateY(0);
+}
+
+/* ============================================ */
+/* 3. OVERLAY - FONDO OSCURO                    */
+/* ============================================ */
+
+.overlay {
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s ease;
+}
+
+.overlay.open {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+/* ============================================ */
+/* 4. ANIMACIÓN DE ENTRADA DEL LOGO            */
+/* ============================================ */
+
+@keyframes fadeIn {
+    0% {
+        opacity: 0;
+        transform: scale(0.8);
+    }
+    100% {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+.animate-fade-in {
+    animation: fadeIn 0.8s ease forwards;
+}
+
+/* ============================================ */
+/* 5. ESTILOS PARA EL BOTÓN CUANDO ESTÁ ACTIVO */
+/* ============================================ */
+
+#submit-btn:not(:disabled) {
+    background-color: var(--secondary, #0058be);
+    color: var(--on-secondary, #ffffff);
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+}
+
+#submit-btn:not(:disabled):hover {
+    background-color: #004a9e;
+    transform: scale(1.02);
+}
+
+#submit-btn:not(:disabled):active {
+    transform: scale(0.98);
+    opacity: 0.8;
+}
+
+/* ============================================ */
+/* 6. ELEMENTOS SELECCIONADOS EN LA LISTA      */
+/* ============================================ */
+
+#options-list div {
+    transition: all 0.2s ease;
+}
+
+#options-list div:hover {
+    background-color: var(--surface-container-low, #f2f4f6);
+}
+
+/* ============================================ */
+/* 7. SCROLL PERSONALIZADO PARA LA LISTA        */
+/* ============================================ */
+
+#options-list::-webkit-scrollbar {
+    width: 4px;
+}
+
+#options-list::-webkit-scrollbar-track {
+    background: var(--surface-container, #eceef0);
+    border-radius: 8px;
+}
+
+#options-list::-webkit-scrollbar-thumb {
+    background: var(--outline-variant, #c6c6cd);
+    border-radius: 8px;
+}
+
+#options-list::-webkit-scrollbar-thumb:hover {
+    background: var(--outline, #76777d);
+}
+
+/* ============================================ */
+/* 8. RESPONSIVE - AJUSTES PARA MÓVIL          */
+/* ============================================ */
+
+@media (max-width: 480px) {
+    .bottom-sheet {
+        max-height: 85vh;
+        border-radius: 1.5rem 1.5rem 0 0;
+    }
+    
+    #options-list div {
+        padding: 16px 16px;
+    }
+}
+
+/* ============================================ */
+/* 9. TRANSICIÓN DEL MAIN (para redirección)    */
+/* ============================================ */
+
+main {
+    transition: opacity 0.5s ease;
+}
+
+main.fade-out {
+    opacity: 0;
+    transform: scale(0.95);
+}
