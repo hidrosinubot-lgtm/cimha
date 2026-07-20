@@ -49,6 +49,14 @@ body {
 /* 5. BOTTOM SHEET ANIMATION                   */
 /* ============================================ */
 
+#bottom-sheet-container {
+    visibility: hidden;
+}
+
+#bottom-sheet-container.bottom-sheet-active {
+    visibility: visible;
+}
+
 .bottom-sheet-overlay {
     transition: opacity 0.3s ease-in-out;
 }
@@ -66,7 +74,6 @@ body {
     opacity: 1;
     pointer-events: auto;
 }
-
 /* ============================================ */
 /* 6. CAROUSEL ANIMATION                       */
 /* ============================================ */
