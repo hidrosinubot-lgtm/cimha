@@ -205,32 +205,50 @@ function validateForm() {
 // 8. ENVÍO DEL FORMULARIO                     //
 // ============================================ //
 
-submitBtn.addEventListener('click', (e) => {
+submitBtn.addEventListener('click', async (e) => {
     e.preventDefault();
-    if (!submitBtn.disabled) {
-        console.log('📧 Enviando reporte a hidrosinu.bot@gmail.com...');
-        console.log('📝 Tipo de reporte:', selectedReportType);
-        console.log('📍 Departamento:', selectedDept);
-        console.log('📍 Municipio:', selectedMuni);
-        console.log('📧 Correo:', emailInput.value);
-        console.log('📌 Asunto:', subjectInput.value);
-        console.log('📄 Descripción:', descInput.value);
+    if (submitBtn.disabled) return;
+
+    // Deshabilitar botón mientras se envía (evita doble clic)
+    submitBtn.disabled = true;
+    submitBtn.classList.add('opacity-50', 'cursor-not-allowed');
+
+    const reporte = {
+        tipo: selectedReportType,
+        departamento: selectedDept,
+        municipio: selectedMuni,
+        email: emailInput.value,
+        asunto: subjectInput.value,
+        descripcion: descInput.value,
+        fecha: new Date().toISOString()
+    };
+
+    try {
+        const response = await fetch('http://localhost:5678/webhook-test/correo-reportes', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(reporte)
+        });
+
+        if (!response.ok) {
+            throw new Error(`Error del servidor: ${response.status}`);
+        }
+
+        console.log('✅ Reporte enviado correctamente al webhook');
+
+        // Redirigir a la pantalla de confirmación
+        window.location.href = 'confirmacion.html';
+
+    } catch (error) {
+        console.error('❌ Error al enviar el reporte:', error);
         
-        // Guardar en localStorage
-        localStorage.setItem('reporte', JSON.stringify({
-            tipo: selectedReportType,
-            departamento: selectedDept,
-            municipio: selectedMuni,
-            email: emailInput.value,
-            asunto: subjectInput.value,
-            descripcion: descInput.value,
-            fecha: new Date().toISOString()
-        }));
+        // Reactivar botón para que el usuario pueda reintentar
+        submitBtn.disabled = false;
+        submitBtn.classList.remove('opacity-50', 'cursor-not-allowed');
         
-        // Redirigir
-        setTimeout(() => {
-            window.location.href = 'principal.html';
-        }, 500);
+        alert('No se pudo enviar el reporte. Verifica tu conexión e inténtalo de nuevo.');
     }
 });
 
