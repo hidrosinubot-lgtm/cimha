@@ -1,0 +1,255 @@
+// ============================================ //
+// REPORTES.JS - JAVASCRIPT                     //
+// ============================================ //
+
+/**
+ * CIMHA - Reportes
+ * Formulario de reportes con carrusel y selectores
+ */
+
+// ============================================ //
+// 1. DATOS                                      //
+// ============================================ //
+
+const data = {
+    'Córdoba': ['Montería', 'Cereté', 'Lorica', 'Sahagún', 'Planeta Rica'],
+    'Sucre': ['Sincelejo', 'Corozal', 'Tolú', 'Sampués'],
+    'Cesar': ['Valledupar', 'Aguachica', 'Agustín Codazzi'],
+    'Atlántico': ['Barranquilla', 'Soledad', 'Malambo', 'Sabanalarga'],
+    'Bolívar': ['Cartagena', 'Magangué', 'Turbaco'],
+    'Magdalena': ['Santa Marta', 'Ciénaga', 'Fundación'],
+    'La Guajira': ['Riohacha', 'Maicao', 'Uribia']
+};
+
+const types = [
+    { label: 'Falla técnica', icon: 'build' },
+    { label: 'Error en datos', icon: 'database' },
+    { label: 'Problema de acceso', icon: 'lock' },
+    { label: 'Sugerencia', icon: 'lightbulb' },
+    { label: 'Otro', icon: 'more_horiz' }
+];
+
+// ============================================ //
+// 2. VARIABLES DE ESTADO                       //
+// ============================================ //
+
+let currentTypeIndex = 0;
+let selectedReportType = types[0].label;
+let selectedDept = null;
+let selectedMuni = null;
+
+// ============================================ //
+// 3. REFERENCIAS A ELEMENTOS DOM              //
+// ============================================ //
+
+const track = document.getElementById('carousel-track');
+const submitBtn = document.getElementById('submit-button');
+const emailInput = document.getElementById('email-input');
+const subjectInput = document.getElementById('subject-input');
+const descInput = document.getElementById('desc-input');
+const deptTrigger = document.getElementById('dept-trigger');
+const deptText = document.getElementById('dept-selected-text');
+const muniTrigger = document.getElementById('muni-trigger');
+const muniText = document.getElementById('muni-selected-text');
+const backButton = document.getElementById('back-button');
+
+// Bottom Sheet
+const bsOverlay = document.getElementById('bs-overlay');
+const bsContainer = document.getElementById('bottom-sheet-container');
+const bsTitle = document.getElementById('bs-title');
+const bsSubtitle = document.getElementById('bs-subtitle');
+const bsList = document.getElementById('bs-list');
+
+// ============================================ //
+// 4. CAROUSEL                                  //
+// ============================================ //
+
+function initCarousel() {
+    track.innerHTML = '';
+    types.forEach((type, idx) => {
+        const slide = document.createElement('div');
+        slide.className = 'w-full flex-shrink-0 flex flex-col items-center justify-center space-y-2 carousel-item';
+        slide.style.width = '100%';
+        slide.id = `carousel-slide-${idx}`;
+        track.appendChild(slide);
+    });
+    updateCarouselPosition();
+}
+
+function updateCarouselPosition() {
+    track.style.transform = `translateX(-${currentTypeIndex * 100}%)`;
+    selectedReportType = types[currentTypeIndex].label;
+
+    types.forEach((type, idx) => {
+        const slide = document.getElementById(`carousel-slide-${idx}`);
+        const isActive = idx === currentTypeIndex;
+        
+        slide.innerHTML = `
+            <div class="relative">
+                ${isActive ? `
+                <div class="bg-blue-500 rounded-full p-1 absolute -top-1 -right-1 z-10 shadow-sm border-2 border-white">
+                    <svg class="h-3 w-3 text-white" fill="currentColor" viewBox="0 0 20 20">
+                        <path clip-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" fill-rule="evenodd"></path>
+                    </svg>
+                </div>
+                ` : ''}
+                <div class="w-16 h-16 bg-white rounded-2xl shadow-md border-2 ${isActive ? 'border-blue-500' : 'border-slate-100'} flex items-center justify-center ${isActive ? 'text-blue-600' : 'text-slate-400'} transition-all duration-300">
+                    <span class="material-symbols-outlined text-4xl">${type.icon}</span>
+                </div>
+            </div>
+            <span class="text-sm font-bold ${isActive ? 'text-blue-900' : 'text-slate-400'} transition-colors duration-300">${type.label}</span>
+        `;
+    });
+    
+    validateForm();
+}
+
+document.getElementById('prev-report').addEventListener('click', () => {
+    currentTypeIndex = (currentTypeIndex - 1 + types.length) % types.length;
+    updateCarouselPosition();
+});
+
+document.getElementById('next-report').addEventListener('click', () => {
+    currentTypeIndex = (currentTypeIndex + 1) % types.length;
+    updateCarouselPosition();
+});
+
+// ============================================ //
+// 5. BOTTOM SHEET                              //
+// ============================================ //
+
+function openBottomSheet(title, subtitle, options, onSelect) {
+    bsTitle.textContent = title;
+    bsSubtitle.textContent = subtitle;
+    bsList.innerHTML = '';
+    
+    options.forEach(opt => {
+        const btn = document.createElement('button');
+        btn.type = 'button';
+        btn.className = 'w-full py-4 px-4 bg-slate-50 border border-slate-100 rounded-2xl text-left font-medium text-slate-800 hover:bg-blue-50 hover:border-blue-200 transition-all active:scale-[0.98]';
+        btn.textContent = opt;
+        btn.onclick = () => {
+            onSelect(opt);
+            closeBottomSheet();
+        };
+        bsList.appendChild(btn);
+    });
+
+    bsContainer.classList.add('bottom-sheet-active');
+}
+
+function closeBottomSheet() {
+    bsContainer.classList.remove('bottom-sheet-active');
+}
+
+bsOverlay.addEventListener('click', closeBottomSheet);
+
+// ============================================ //
+// 6. SELECTORES                                //
+// ============================================ //
+
+deptTrigger.addEventListener('click', () => {
+    openBottomSheet('Seleccionar Departamento', 'Elige el departamento de procedencia', Object.keys(data), (val) => {
+        selectedDept = val;
+        deptText.textContent = val;
+        deptText.classList.add('text-slate-900');
+        
+        selectedMuni = null;
+        muniText.textContent = 'Seleccione un municipio';
+        muniText.classList.remove('text-slate-900');
+        muniTrigger.disabled = false;
+        muniTrigger.classList.remove('opacity-50', 'cursor-not-allowed');
+        validateForm();
+    });
+});
+
+muniTrigger.addEventListener('click', () => {
+    if (!selectedDept) return;
+    openBottomSheet('Seleccionar Municipio', `Municipios de ${selectedDept}`, data[selectedDept], (val) => {
+        selectedMuni = val;
+        muniText.textContent = val;
+        muniText.classList.add('text-slate-900');
+        validateForm();
+    });
+});
+
+// ============================================ //
+// 7. VALIDACIÓN DEL FORMULARIO                //
+// ============================================ //
+
+function validateEmail(email) {
+    const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return re.test(email) && email.toLowerCase().endsWith('.com');
+}
+
+function validateForm() {
+    const isEmailValid = validateEmail(emailInput.value);
+    const isSubjectValid = subjectInput.value.trim().length > 0;
+    const isDescValid = descInput.value.trim().length > 0;
+    const isDeptValid = !!selectedDept;
+    const isMuniValid = !!selectedMuni;
+    const isTypeValid = !!selectedReportType;
+
+    if (isEmailValid && isSubjectValid && isDescValid && isDeptValid && isMuniValid && isTypeValid) {
+        submitBtn.disabled = false;
+    } else {
+        submitBtn.disabled = true;
+    }
+}
+
+[emailInput, subjectInput, descInput].forEach(el => {
+    el.addEventListener('input', validateForm);
+});
+
+// ============================================ //
+// 8. ENVÍO DEL FORMULARIO                     //
+// ============================================ //
+
+submitBtn.addEventListener('click', (e) => {
+    e.preventDefault();
+    if (!submitBtn.disabled) {
+        console.log('📧 Enviando reporte a hidrosinu.bot@gmail.com...');
+        console.log('📝 Tipo de reporte:', selectedReportType);
+        console.log('📍 Departamento:', selectedDept);
+        console.log('📍 Municipio:', selectedMuni);
+        console.log('📧 Correo:', emailInput.value);
+        console.log('📌 Asunto:', subjectInput.value);
+        console.log('📄 Descripción:', descInput.value);
+        
+        // Guardar en localStorage
+        localStorage.setItem('reporte', JSON.stringify({
+            tipo: selectedReportType,
+            departamento: selectedDept,
+            municipio: selectedMuni,
+            email: emailInput.value,
+            asunto: subjectInput.value,
+            descripcion: descInput.value,
+            fecha: new Date().toISOString()
+        }));
+        
+        // Redirigir
+        setTimeout(() => {
+            window.location.href = 'principal.html';
+        }, 500);
+    }
+});
+
+// ============================================ //
+// 9. BOTÓN VOLVER                              //
+// ============================================ //
+
+backButton.addEventListener('click', () => {
+    window.location.href = 'principal.html';
+});
+
+// ============================================ //
+// 10. INICIALIZACIÓN                           //
+// ============================================ //
+
+document.addEventListener('DOMContentLoaded', function() {
+    console.log('🚀 Reportes - Iniciado correctamente');
+    initCarousel();
+    console.log('📍 Departamentos disponibles:', Object.keys(data).length);
+});
+
+console.log('✅ Reportes - Script cargado correctamente');
