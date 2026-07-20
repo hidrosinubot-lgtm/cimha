@@ -132,7 +132,7 @@ main {
 }
 
 /* ============================================ */
-/* 7. TRANSICIÓN DE ENTRADA                     */
+/* 7. TRANSICIÓN DE ENTRADA Y SALIDA            */
 /* ============================================ */
 
 body {
@@ -144,4 +144,9 @@ body {
 body.loaded {
     opacity: 1;
     transform: scale(1);
+}
+
+body.fade-out-back {
+    opacity: 0;
+    transform: scale(0.98);
 }
