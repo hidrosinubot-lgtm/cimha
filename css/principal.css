@@ -94,6 +94,30 @@ main > section:not(.bg-banner-gradient) {
     border-radius: 0 !important; /* pisa el rounded-b-[40px] y la media query */
 }
 
+/* ============================================ */
+/* 9. TRANSICIÓN DE SALIDA PARA REDIRECCIÓN       */
+/* ============================================ */
+
+body {
+    transition: opacity 0.4s cubic-bezier(0.4, 0, 0.2, 1),
+                transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+body.fade-out {
+    opacity: 0;
+    transform: scale(0.95);
+    pointer-events: none;
+}
+
+/* Para todas las tarjetas */
+.card-item {
+    transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+                box-shadow 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.card-item:active {
+    transform: scale(0.97);
+}
 .bg-banner-gradient .px-gutter {
     padding-left: 14px;
     padding-right: 14px;
