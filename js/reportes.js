@@ -253,11 +253,16 @@ submitBtn.addEventListener('click', async (e) => {
 });
 
 // ============================================ //
-// 9. BOTÓN VOLVER                              //
+// 9. BOTÓN VOLVER - Con animación de salida    //
 // ============================================ //
 
 backButton.addEventListener('click', () => {
-    window.location.href = 'principal.html';
+    document.body.classList.remove('loaded');
+    document.body.classList.add('fade-out-back');
+    
+    setTimeout(() => {
+        window.location.href = 'principal.html';
+    }, 400);
 });
 
 // ============================================ //
@@ -267,7 +272,18 @@ backButton.addEventListener('click', () => {
 document.addEventListener('DOMContentLoaded', function() {
     console.log('🚀 Reportes - Iniciado correctamente');
     initCarousel();
+    initEntranceTransition();
     console.log('📍 Departamentos disponibles:', Object.keys(data).length);
 });
 
 console.log('✅ Reportes - Script cargado correctamente');
+
+// ============================================ //
+// 11. TRANSICIÓN DE ENTRADA                    //
+// ============================================ //
+
+function initEntranceTransition() {
+    requestAnimationFrame(() => {
+        document.body.classList.add('loaded');
+    });
+}
