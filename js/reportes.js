@@ -139,6 +139,10 @@ function openBottomSheet(title, subtitle, options, currentValue, onSelect) {
     bsContainer.classList.add('bottom-sheet-active');
 }
 
+function closeBottomSheet() {
+    bsContainer.classList.remove('bottom-sheet-active');
+}
+
 bsOverlay.addEventListener('click', closeBottomSheet);
 
 // ============================================ //
