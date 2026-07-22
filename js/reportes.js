@@ -257,8 +257,8 @@ submitBtn.addEventListener('click', async (e) => {
 // ============================================ //
 
 backButton.addEventListener('click', () => {
-    document.body.classList.remove('loaded');
-    document.body.classList.add('fade-out-back');
+    document.querySelector('main').classList.remove('loaded');
+    document.querySelector('main').classList.add('fade-out-back');
     
     setTimeout(() => {
         window.location.href = 'principal.html';
@@ -284,6 +284,6 @@ console.log('✅ Reportes - Script cargado correctamente');
 
 function initEntranceTransition() {
     requestAnimationFrame(() => {
-        document.body.classList.add('loaded');
+        document.querySelector('main').classList.add('loaded');
     });
 }
